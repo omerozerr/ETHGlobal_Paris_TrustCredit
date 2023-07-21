@@ -3,8 +3,11 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import LendBox from '@/components/lend/LendBox';
 import BorrowBox from '@/components/borrow/BorrowBox';
+import { useState } from 'react';
 
 const Home = () => {
+  const [isSupplied, setisSupplied] = useState(false);
+
   return (
     // Then wrap your page's content with the Menubar component
     <Menubar>

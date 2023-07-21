@@ -1,5 +1,5 @@
 import styles from './LendBox.module.css';
-import AssetRow from './Assets/AssetRow';
+import SupplyRow from './Assets/SupplyRow';
 import { useState } from 'react';
 
 const assets = [
@@ -29,7 +29,7 @@ const LendBox = () => {
           <span>CanBeCollateral</span>
         </div>
         {assets.map((asset) => (
-          <AssetRow key={asset.name} asset={asset} />
+          <SupplyRow key={asset.name} asset={asset} />
         ))}
       </div>
     </div>
