@@ -14,10 +14,10 @@
 }
 .headerRow {
   display: flex;
-  justify-content: space-between;
+  justify-content: left;
 }
 
 .headerRow span {
-  flex: 1;
+  flex: 0.2;
   text-align: center;
 }

@@ -1,6 +1,6 @@
 import styles from './AssetRow.module.css';
 import { useState } from 'react';
-import Details from '@/components/actionDetails/Details';
+import DetailsSupply from '@/components/actionDetails/DetailsSupply';
 
 const SupplyRow = ({ asset }) => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -18,7 +18,13 @@ const SupplyRow = ({ asset }) => {
       <button onClick={openModal} className={styles.assetSupplyButton}>
         Supply
       </button>
-      {isModalOpen && <Details isOpen={isModalOpen} onClose={closeModal} />}
+      {isModalOpen && (
+        <DetailsSupply
+          isOpen={isModalOpen}
+          onClose={closeModal}
+          name={asset.name}
+        />
+      )}
     </div>
   );
 };
