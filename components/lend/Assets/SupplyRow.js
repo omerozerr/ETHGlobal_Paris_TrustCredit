@@ -2,7 +2,7 @@ import styles from './AssetRow.module.css';
 import { useState } from 'react';
 import DetailsSupply from '@/components/actionDetails/DetailsSupply';
 
-const SupplyRow = ({ asset }) => {
+const SupplyRow = ({ asset, SupplyStatusSetter }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -20,6 +20,7 @@ const SupplyRow = ({ asset }) => {
       </button>
       {isModalOpen && (
         <DetailsSupply
+          SupplyStatusSetter={SupplyStatusSetter}
           isOpen={isModalOpen}
           onClose={closeModal}
           name={asset.name}

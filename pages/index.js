@@ -8,6 +8,9 @@ import { useState } from 'react';
 const Home = () => {
   const [isSupplied, setisSupplied] = useState(false);
 
+  function SupplyStatusSetter(newValue) {
+    setisSupplied(newValue);
+  }
   return (
     // Then wrap your page's content with the Menubar component
     <Menubar>
@@ -21,8 +24,8 @@ const Home = () => {
           <link href="/favicon.ico" rel="icon" />
         </Head>
 
-        <LendBox />
-        <BorrowBox />
+        <LendBox SupplyStatusSetter={SupplyStatusSetter} />
+        <BorrowBox isSupplied={isSupplied} />
 
         <footer className={styles.footer}>
           <a

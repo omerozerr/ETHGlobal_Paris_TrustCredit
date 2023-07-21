@@ -16,7 +16,7 @@ const assets = [
   },
 ];
 
-const BorrowBox = () => {
+const BorrowBox = ({ isSupplied }) => {
   return (
     <div className={styles.borrowbox}>
       <h2>Borrow Assets</h2>
@@ -28,7 +28,7 @@ const BorrowBox = () => {
           <span>CanBeCollateral</span>
         </div>
         {assets.map((asset) => (
-          <BorrowRow key={asset.name} asset={asset} />
+          <BorrowRow key={asset.name} asset={asset} isSupplied={isSupplied} />
         ))}
       </div>
     </div>

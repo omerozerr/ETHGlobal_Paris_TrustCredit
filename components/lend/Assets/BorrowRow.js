@@ -2,7 +2,7 @@ import styles from './AssetRow.module.css';
 import { useState } from 'react';
 import DetailsBorrow from '@/components/actionDetails/DetailsBorrow';
 
-const BorrowRow = ({ asset }) => {
+const BorrowRow = ({ asset, isSupplied }) => {
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
@@ -20,6 +20,7 @@ const BorrowRow = ({ asset }) => {
       </button>
       {isModalOpen && (
         <DetailsBorrow
+          isSupplied={isSupplied}
           isOpen={isModalOpen}
           onClose={closeModal}
           name={asset.name}
