@@ -1,4 +1,4 @@
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { Web3Button } from '@web3modal/react'
 import Link from 'next/link';
 import styles from './Navbar.module.css';
 import Image from 'next/image';
@@ -24,7 +24,7 @@ const Navbar = () => {
         </Link>
       </div>
       <div className={styles.wallet}>
-        <ConnectButton />
+        <Web3Button />
       </div>
     </nav>
   );

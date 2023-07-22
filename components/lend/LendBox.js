@@ -21,12 +21,6 @@ const LendBox = ({ SupplyStatusSetter }) => {
     <div className={styles.lendbox}>
       <h2>Supply Assets</h2>
       <div>
-        <div className={styles.headerRow}>
-          <span>Name</span>
-          <span>Balance</span>
-          <span>APY</span>
-          <span>CanBeCollateral</span>
-        </div>
         {assets.map((asset) => (
           <SupplyRow
             key={asset.name}

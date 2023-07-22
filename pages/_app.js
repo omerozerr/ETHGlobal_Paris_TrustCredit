@@ -1,53 +1,28 @@
 import '../styles/globals.css';
-import '@rainbow-me/rainbowkit/styles.css';
-import {
-  getDefaultWallets,
-  RainbowKitProvider,
-  darkTheme,
-} from '@rainbow-me/rainbowkit';
-import { configureChains, createConfig, WagmiConfig } from 'wagmi';
-import {
-  arbitrum,
-  goerli,
-  mainnet,
-  optimism,
-  polygon,
-  zora,
-} from 'wagmi/chains';
-import { publicProvider } from 'wagmi/providers/public';
+import { EthereumClient, w3mConnectors, w3mProvider } from '@web3modal/ethereum'
+import { Web3Modal } from '@web3modal/react'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { arbitrum, mainnet, polygon } from 'wagmi/chains'
 
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [
-    mainnet,
-    polygon,
-    optimism,
-    arbitrum,
-    zora,
-    ...(process.env.NEXT_PUBLIC_ENABLE_TESTNETS === 'true' ? [goerli] : []),
-  ],
-  [publicProvider()]
-);
+const chains = [arbitrum, mainnet, polygon]
+const projectId = 'e52a3885abc31abfec0ed210e98640c8'
 
-const { connectors } = getDefaultWallets({
-  appName: 'RainbowKit App',
-  projectId: 'e52a3885abc31abfec0ed210e98640c8',
-  chains,
-});
-
+const { publicClient } = configureChains(chains, [w3mProvider({ projectId })])
 const wagmiConfig = createConfig({
   autoConnect: true,
-  connectors,
-  publicClient,
-  webSocketPublicClient,
-});
+  connectors: w3mConnectors({ projectId, chains }),
+  publicClient
+})
+const ethereumClient = new EthereumClient(wagmiConfig, chains)
 
 function MyApp({ Component, pageProps }) {
   return (
+    <>
     <WagmiConfig config={wagmiConfig}>
-      <RainbowKitProvider theme={darkTheme()} chains={chains}>
         <Component {...pageProps} />
-      </RainbowKitProvider>
     </WagmiConfig>
+    <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+    </>
   );
 }
 

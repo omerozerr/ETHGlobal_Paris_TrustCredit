@@ -11,14 +11,72 @@
   z-index: 1000;
 }
 
+.inputBox {
+  border-radius: 5px;
+  background: rgb(249, 250, 250);
+  border: 1px solid rgb(181, 189, 196);
+  height: 80px;
+  line-height: 24px;
+  padding: 7px 8px;
+  color: rgb(8, 9, 10);
+  box-shadow: none;
+}
+
+.txBox {
+  margin-top: 10px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: normal;
+  background: rgb(249, 250, 250);
+  border: 1px solid rgb(181, 189, 196);
+  font-size: 16px;
+  height: 160px;
+  line-height: 24px;
+  padding: 7px 8px;
+  color: rgb(8, 9, 10);
+  box-shadow: none;
+}
+
+.inputAmount{
+  display: flex;
+  flex-direction: column;
+  font-size: x-large;
+  font-weight: 100;
+  margin-top:25px;
+  gap: 10px
+}
+
+.inputBox:focus {
+  background-color: #fff;
+  border-color: #3b49df;
+  box-shadow: 1px 1px 0 #3b49df;
+}
+
 .detail {
+  position: relative;
+  display: flex;
   background-color: #fff;
   padding: 20px;
   border-radius: 10px;
-  max-width: 500px;
-  width: 90%;
+  max-width: 600px;
+  width: 95%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  flex-direction: column;
+  align-items: center;
 }
+
+.details {
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  gap:10px;
+  align-items: center;
+}
+
+
 .assetSupplyButton {
   display: inline-block;
   outline: 0;
@@ -33,4 +91,57 @@
   border: 1px solid #cbd5e0;
   line-height: 26px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  margin-bottom: 20px;
 }
+
+.detailWrapper{
+  margin-bottom: 20px;
+  font-size: x-large;
+}
+
+.wrapper{
+  display:flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid rgb(174, 174, 174);
+  border-radius: 4px;
+  width: 500px;
+  height: 600px;
+  padding: 25px;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.xbutton {
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  transform: scale(var(--ggs,1));
+  width: 22px;
+  height: 22px;
+  border: 2px solid transparent;
+  border-radius: 40px;
+ }
+ 
+ .xbutton::after,
+ .xbutton::before {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  position: absolute;
+  width: 16px;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(45deg);
+  border-radius: 5px;
+  top: 8px;
+  left: 1px
+ }
+ 
+ .xbutton::after {
+  transform: rotate(-45deg)
+ } 

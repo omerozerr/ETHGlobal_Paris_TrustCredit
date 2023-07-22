@@ -46,21 +46,32 @@ const DetailsSupply = ({ isOpen, onClose, name, SupplyStatusSetter }) => {
   return (
     <div className={styles.detailOverlay}>
       <div className={styles.detail}>
-        <h2>Supply {name} </h2>
-        <input type="text" value={supplyValue} onChange={handleChange} />
-        <button
-          // TODO CHANGE THE FUNCTİON
-          onClick={() => supllysetterDENEME(true)}
-          className={styles.assetSupplyButton}
-        >
-          Supply
-        </button>
-
-        <br />
-        <button onClick={onClose}>Close</button>
+        <div className={styles.closeButton}>
+          <button className={styles.xbutton} onClick={onClose}>X</button>
+        </div>
+        <div className={styles.details}>
+          <h2>Supply {name} </h2> 
+          <div className={styles.wrapper}>
+            <div className={styles.inputAmount}>Amount
+            <input className={styles.inputBox} type="text" value={supplyValue} onChange={handleChange} />
+          </div>
+          <div className={styles.detailWrapper}>
+              Details
+              <div className={styles.txBox}>Hi</div>
+          </div>
+          <button
+            onClick={() => supllysetterDENEME(true)}
+            className={styles.assetSupplyButton}
+          >
+            Supply
+          </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 };
+
+
 
 export default DetailsSupply;
