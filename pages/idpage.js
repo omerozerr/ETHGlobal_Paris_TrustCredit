@@ -2,7 +2,7 @@ import styles from '../styles/Home.module.css';
 import Menubar from '@/components/global/Menubar';
 import StatBox from '@/components/statbox/StatBox';
 import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { init, useLazyQuery } from '@airstack/airstack-react';
 import { useAccount } from 'wagmi';
 init('ddfcc652b902475e99ee40f6db959ff9');
@@ -24,12 +24,16 @@ const Home = () => {
   useEffect(() => {
     setTokenId(null);
   }, [account.address]);
+  
+  function TokenIdSetter(NewValue) {
+    setTokenId(NewValue);
+  }
 
   const [tokenId, setTokenId] = useState(null);
 
   const tba = `{
     Accounts(
-      input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F"}, tokenId: {_eq:$tokenId }}
+      input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F"}, tokenId: {_eq: "9"}}}
     ) {
       Account {
         address {
@@ -50,82 +54,62 @@ const Home = () => {
 
     const [tbAccounts, setTbAccounts] = useState([])
     console.log(tbAccounts)
-
-    const [fetch_tba, tba_queryResponse] = useLazyQuery(tba);
+    const [fetch_tba, tba_queryResponse] = useLazyQuery(tba)
 
     useEffect(() => {
       fetch_tba();
-    }, [fetch_tba, tokenId]);
-    
+    }, []);
+
     useEffect(() => {
-      if(
-        tba_queryResponse.data && 
-        tba_queryResponse.data.Accounts && 
-        tba_queryResponse.data.Accounts.Account
-      ) {
+      if(tba_queryResponse.data) {
         console.log(tba_queryResponse.data.Accounts.Account);
-        const customImplementation = '0x4C748B52B130106D49978ad937C0f65BC8bd5a86'
+        const customImplementation = '0x1538db7bca51b886b9c3110e17cf64a7a6181dc1'
         const newAccounts = tba_queryResponse.data.Accounts.Account
         .filter(account => account.implementation === customImplementation)
         .map(account => account.address.addresses)
         .flat()
-    
+
         setTbAccounts(newAccounts)
       }
     }, [tba_queryResponse.data]);
 
-    const tbaNFTs = (accountAddress) => `
-    {
-      Accounts(
-        input: {filter: {address: {_eq: "${accountAddress}"}, standard: {_eq: ERC6551}}, blockchain: polygon, limit: 50}
+    const tbaNFTs = `
+    query MyQuery {
+      TokenBalances(
+        input: {filter: {owner: {_eq: "0x0f83864604Bdde4685fa5eBe677C7bd59D0069A3"}}, blockchain: polygon, limit: 50}
       ) {
-        Account {
-          address {
-            addresses
-          }
-          nft {
+        TokenBalance {
+          tokenAddress
+          amount
+          formattedAmount
+          tokenType
+          tokenNfts {
             address
             tokenId
-            contentValue{
-              image{
-                original
-              }
-            }
+            blockchain
           }
         }
       }
     }
     `;
   
-    // Use state to manage NFT data
-    const [tbaNFTData, setTbaNFTData] = useState([]);
-    const [currentIndex, setCurrentIndex] = useState(0);
-  
-    // Fetch NFTs for the first account initially
-    const [fetchTbaNFTs, tbaNFTsResponse] = useLazyQuery(tbaNFTs(tbAccounts[currentIndex]));
-  
-    useEffect(() => {
-      if (tbAccounts.length > 0) {
-        fetchTbaNFTs();
-      }
-    }, [tbAccounts, fetchTbaNFTs]);
-  
-    useEffect(() => {
-      if (tbaNFTsResponse.data) {
-        setTbaNFTData(prevData => [...prevData, tbaNFTsResponse.data]);
-        
-        // Move to next account
-        if (currentIndex < tbAccounts.length - 1) {
-          setCurrentIndex(prevIndex => prevIndex + 1);
-        }
-      }
-    }, [tbaNFTsResponse.data, currentIndex, tbAccounts.length]);
+    const [tbAccNFTs, setTbAccNFTs] = useState([])
+    const [fetch_tbaNFTs, tbaNFTs_queryResponse] = useLazyQuery(tbaNFTs)
 
-    console.log(tbaNFTData)
+    useEffect(() => {
+      if(tbAccounts.length > 0) {  // check if tbAccounts array is populated
+        fetch_tbaNFTs();
+      }
+    }, [tbAccounts]);
+    
+    useEffect(() => {
+      if(tbaNFTs_queryResponse.data) {
+        console.log(tbaNFTs_queryResponse.data)
+        setTbAccNFTs(tbaNFTs_queryResponse.data)
+      }
+    }, [tbaNFTs_queryResponse.data]);
 
-    function TokenIdSetter(NewValue) {
-      setTokenId(NewValue);
-    }
+    console.log(tbAccNFTs)
     
   return (
   <Menubar>

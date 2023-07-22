@@ -12,39 +12,9 @@ const WalletComponent = dynamic(() => import('../WalletComponent'), {
 
 const IdBar = ({tbAccounts, tokenId, TokenIdSetter}) => {
 
-  console.log(tbAccounts)
-
-  const query_metadata = `{
-    TokenNft(
-      input: {address: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F", tokenId: "${tokenId}", blockchain: polygon}
-    ) {
-      tokenId
-      metaData {
-        name
-        description
-        image
-        attributes {
-          trait_type
-          value
-        }
-        externalUrl
-        animationUrl
-      }
-    }
-  }`;
-  const [fetch_query_metadata, metadata_queryResponse] =
-    useLazyQuery(query_metadata);
-
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
-
-  useEffect(() => {
-    if (tokenId) fetch_query_metadata();
-    console.log(metadata_queryResponse.data);
-  }, [tokenId]);
-
-
 
   return (
     <div className={styles.idbar}>
