@@ -29,7 +29,7 @@ const Home = () => {
 
   const tba = `{
     Accounts(
-      input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F"}, tokenId: {_eq:${tokenId} }}}
+      input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F"}, tokenId: {_eq:$tokenId }}
     ) {
       Account {
         address {
@@ -64,7 +64,7 @@ const Home = () => {
         tba_queryResponse.data.Accounts.Account
       ) {
         console.log(tba_queryResponse.data.Accounts.Account);
-        const customImplementation = '0x1538db7bca51b886b9c3110e17cf64a7a6181dc1'
+        const customImplementation = '0x4C748B52B130106D49978ad937C0f65BC8bd5a86'
         const newAccounts = tba_queryResponse.data.Accounts.Account
         .filter(account => account.implementation === customImplementation)
         .map(account => account.address.addresses)
@@ -77,7 +77,7 @@ const Home = () => {
     const tbaNFTs = (accountAddress) => `
     {
       Accounts(
-        input: {filter: {address: {_eq: "${accountAddress}"}, standard: {_eq: ERC6551}}, blockchain: ethereum, limit: 50}
+        input: {filter: {address: {_eq: "${accountAddress}"}, standard: {_eq: ERC6551}}, blockchain: polygon, limit: 50}
       ) {
         Account {
           address {

@@ -31,7 +31,7 @@ const CreateAccount = (props) => {
   async function Create6551Account() {
     console.log(tokenId);
     const config = await prepareWriteContract({
-      address: '0x3f5B2da09D4E6613470D5Cf70eBA13c27Bd85635',
+      address: '0x02101dfB77FDE026414827Fdc604ddAF224F0921',
       abi: RegistryABI,
       functionName: 'createAccount',
       chainId: 137,
