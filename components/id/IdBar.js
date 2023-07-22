@@ -1,5 +1,4 @@
 import styles from './IdBar.module.css';
-import { useAccount } from 'wagmi';
 import { useState, useEffect } from 'react';
 import Modal from '../modal/Modal';
 import dynamic from 'next/dynamic';
@@ -11,32 +10,9 @@ const WalletComponent = dynamic(() => import('../WalletComponent'), {
   ssr: false,
 });
 
-const IdBar = () => {
+const IdBar = ({tbAccounts, tokenId, TokenIdSetter}) => {
 
-  const tba = `{
-    Accounts(
-      input: {blockchain: polygon, limit: 200, filter: {tokenAddress: {_eq: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F"}, tokenId: {_eq: "2"}}}
-    ) {
-      Account {
-        address {
-          addresses
-          domains {
-            name
-            isPrimary
-          }
-          socials {
-            dappName
-            profileName
-          }
-        }
-        implementation
-      }
-    }
-    }`;
-
-  const [tbAccounts, setTbAccounts] = useState([])
   console.log(tbAccounts)
-  const [tokenId, setTokenId] = useState(null);
 
   const query_metadata = `{
     TokenNft(
@@ -58,51 +34,17 @@ const IdBar = () => {
   }`;
   const [fetch_query_metadata, metadata_queryResponse] =
     useLazyQuery(query_metadata);
-  
-  const [fetch_tba, tba_queryResponse] = useLazyQuery(tba)
-
-    useEffect(() => {
-      fetch_tba();
-    }, []);
-    
-
-    useEffect(() => {
-      if(tba_queryResponse.data) {
-        console.log(tba_queryResponse.data.Accounts.Account);
-        const customImplementation = '0x1538db7bca51b886b9c3110e17cf64a7a6181dc1'
-        const newAccounts = tba_queryResponse.data.Accounts.Account
-        .filter(account => account.implementation === customImplementation)
-        .map(account => account.address.addresses)
-        .flat()
-
-        setTbAccounts(newAccounts)
-      }
-    }, [tba_queryResponse.data]);
-
 
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => setModalOpen(true);
   const closeModal = () => setModalOpen(false);
-  const account = useAccount({
-    onConnect({ address, connector, isReconnected }) {
-      console.log('Connected', { address, connector, isReconnected });
-    },
-    onDisconnect() {
-      setTokenId(null);
-    },
-  });
-  useEffect(() => {
-    setTokenId(null);
-  }, [account.address]);
 
   useEffect(() => {
     if (tokenId) fetch_query_metadata();
     console.log(metadata_queryResponse.data);
   }, [tokenId]);
 
-  function TokenIdSetter(NewValue) {
-    setTokenId(NewValue);
-  }
+
 
   return (
     <div className={styles.idbar}>
