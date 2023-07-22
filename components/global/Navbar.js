@@ -7,7 +7,11 @@ const Navbar = () => {
   return (
     <nav className={styles.navbar}>
       <div className={styles.logo}>
-        <Image src="/logo.png"
+        <Image src="/3credits.svg"
+              width={100}
+              height={75}
+        alt="Logo" />
+        <Image src="/TrustCredit.svg"
               width={100}
               height={75}
         alt="Logo" />
@@ -17,14 +21,13 @@ const Navbar = () => {
           Markets
         </Link>
         <Link className={styles.card} href="/idpage">
-            ID page
+            My Profile
           </Link>
-        <Link className={styles.card} href="/contact">
-          github
-        </Link>
       </div>
       <div className={styles.wallet}>
-        <Web3Button />
+        <Web3Button 
+        themeVariables={{
+          '--w3m-background-color': "red" }}   />
       </div>
     </nav>
   );

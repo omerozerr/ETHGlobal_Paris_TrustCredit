@@ -21,7 +21,13 @@ function MyApp({ Component, pageProps }) {
     <WagmiConfig config={wagmiConfig}>
         <Component {...pageProps} />
     </WagmiConfig>
-    <Web3Modal projectId={projectId} ethereumClient={ethereumClient} />
+    <Web3Modal projectId={projectId} ethereumClient={ethereumClient}
+            themeVariables={{
+              '--w3m-border-radius': '9px',
+              '--w3m-border': '3px solid #BBA68C',
+              '--w3m-background-color': '#4A423A'
+            }}
+    />
     </>
   );
 }

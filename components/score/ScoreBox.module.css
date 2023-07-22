@@ -1,0 +1,21 @@
+.boxOverlay {
+    margin-top: 33px;
+    height: 215px;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    display: flex;
+}
+
+.scoreBoxes {
+    height: 89px;
+    display: flex;
+    width: 1109px;
+}
+.mainBox{
+    width: 1109px;
+    height: 126px;
+    display: flex;
+    border-radius: 9px;
+    background-color: rgba(253, 250, 247, 0.5);
+}

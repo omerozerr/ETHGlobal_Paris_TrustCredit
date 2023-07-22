@@ -1,0 +1,32 @@
+.titleContainer {
+    margin-right: 19px;
+    margin-top: 50px;
+    height: 55px;
+    border-radius: 9px;
+    background-color: rgba(253, 250, 247, 0.4);
+    display: flex;
+    color: #4A423A;
+    font-family: Manrope;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 20px;
+    width: 502.807px;
+}
+
+.name, .rate, .eRate{
+    margin-top: 17px;
+}
+
+.name{
+    margin-left: 110px;
+}
+
+.rate{
+    margin-left: 45px;
+
+}
+
+.eRate{
+    margin-left: 30px;
+}

@@ -1,17 +1,18 @@
 import styles from './LendBox.module.css';
 import SupplyRow from './Assets/SupplyRow';
+import LendTitles from './LendTitles';
 
 const assets = [
   {
-    name: 'Bitcoin',
-    balance: '1.5 BTC',
-    apy: '4%',
+    name: 'DAI',
+    apy: '65%',
+    extraRate: '5%',
     canBeCollateral: true,
   },
   {
-    name: 'Ethereum',
-    balance: '5 ETH',
-    apy: '2%',
+    name: 'ETH',
+    apy: '64%',
+    extraRate: '5%',
     canBeCollateral: false,
   },
 ];
@@ -19,7 +20,8 @@ const assets = [
 const LendBox = ({ SupplyStatusSetter }) => {
   return (
     <div className={styles.lendbox}>
-      <h2>Supply Assets</h2>
+      <div className={styles.supplyTitle}>Assets to Supply</div>
+      <LendTitles />
       <div>
         {assets.map((asset) => (
           <SupplyRow

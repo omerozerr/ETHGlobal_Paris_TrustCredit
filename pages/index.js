@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.css';
 import LendBox from '@/components/lend/LendBox';
 import BorrowBox from '@/components/borrow/BorrowBox';
+import ScoreBox from '@/components/score/ScoreBox';
 import { useState } from 'react';
 
 const Home = () => {
@@ -23,9 +24,11 @@ const Home = () => {
           />
           <link href="/favicon.ico" rel="icon" />
         </Head>
-
-        <LendBox SupplyStatusSetter={SupplyStatusSetter} />
-        <BorrowBox isSupplied={isSupplied} />
+        <div className={styles.box}>
+          <ScoreBox />
+          <LendBox SupplyStatusSetter={SupplyStatusSetter} />
+          <BorrowBox isSupplied={isSupplied} />
+        </div>
 
         <footer className={styles.footer}>
           <a
