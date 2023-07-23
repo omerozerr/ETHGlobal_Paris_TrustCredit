@@ -1,17 +1,18 @@
 import styles from './BorrowBox.module.css';
 import BorrowRow from '../lend/Assets/BorrowRow';
+import LendTitles from '../lend/LendTitles';
 
 const assets = [
   {
-    name: 'Bitcoin',
-    balance: '1.5 BTC',
-    apy: '4%',
+    name: 'DAI',
+    apy: '65%',
+    extraRate: '5%',
     canBeCollateral: true,
   },
   {
-    name: 'Ethereum',
-    balance: '5 ETH',
-    apy: '2%',
+    name: 'ETH',
+    apy: '64%',
+    extraRate: '5%',
     canBeCollateral: false,
   },
 ];
@@ -19,7 +20,8 @@ const assets = [
 const BorrowBox = ({ isSupplied }) => {
   return (
     <div className={styles.borrowbox}>
-      <h2>Borrow Assets</h2>
+    <div className={styles.supplyTitle}>Assets to Borrow</div>
+      <LendTitles />
       <div>
         {assets.map((asset) => (
           <BorrowRow key={asset.name} asset={asset} isSupplied={isSupplied} />

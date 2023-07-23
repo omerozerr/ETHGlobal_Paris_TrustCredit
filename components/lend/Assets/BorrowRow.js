@@ -10,14 +10,20 @@ const BorrowRow = ({ asset, isSupplied }) => {
 
   return (
     <div className={styles.assetRow}>
+    {asset.name === "DAI" ? 
+    <Image src="/dai-logo.svg"
+    className={styles.assetLogo}
+    width={50}
+    height={50}
+    alt="Logo" />:
       <Image src="/eth-logo.svg"
+      className={styles.assetLogo}
               width={50}
               height={50}
-        alt="Logo" />
+        alt="Logo" />}
       <div className={styles.assetName}>{asset.name}</div>
-      <div className={styles.assetBalance}>{asset.balance}</div>
       <div className={styles.assetApy}>{asset.apy}</div>
-
+      <div className={styles.asseteRate}>{asset.extraRate}</div>
       <button onClick={openModal} className={styles.assetSupplyButton}>
         Borrow
       </button>

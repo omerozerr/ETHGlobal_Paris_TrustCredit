@@ -1,13 +1,25 @@
 import styles from '../styles/Home.module.css';
 import Menubar from '@/components/global/Menubar';
-import StatBox from '@/components/statbox/StatBox';
 import dynamic from 'next/dynamic';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { init, useLazyQuery } from '@airstack/airstack-react';
-import { useAccount } from 'wagmi';
+import { useAccount,   useContractRead } from 'wagmi';
+import ABI from '@/BasemoABI';
 init('ddfcc652b902475e99ee40f6db959ff9');
 
 const IdBar = dynamic(() => import('@/components/id/IdBar'), {
+  ssr: false,
+});
+
+const ConnectAcc = dynamic(() => import('@/components/connect/ConnectAcc'), {
+  ssr: false,
+});
+
+const MintId = dynamic(() => import('@/components/connect/MintId'), {
+  ssr: false,
+});
+
+const WalletComponent = dynamic(() => import('../components/WalletComponent'), {
   ssr: false,
 });
 
@@ -24,12 +36,53 @@ const Home = () => {
   useEffect(() => {
     setTokenId(null);
   }, [account.address]);
-  
-  function TokenIdSetter(NewValue) {
-    setTokenId(NewValue);
-  }
 
+  const [tbAccounts, setTbAccounts] = useState([])
   const [tokenId, setTokenId] = useState(null);
+  const [tbAccNFTs, setTbAccNFTs] = useState([])
+  const [isMounted, setIsMounted] = useState(false);
+
+  const query = `query MyQuery {
+    TokenBalances(
+      input: {filter: {owner: {_eq: "${account.address}"}, 
+      tokenAddress: {_eq: "0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F"}}, 
+      blockchain: polygon}
+    ) {
+      TokenBalance {
+        tokenNfts {
+          tokenId
+        }
+      }
+    }
+  }`;
+  const [fetch, queryResponse] = useLazyQuery(query);
+
+  useEffect(() => {
+    console.log(account.address);
+    console.log(ContractRead.data);
+    if (account.address && ContractRead.data) {
+      console.log('fetching');
+      fetch();
+    }
+  }, [account.address]);
+
+  useEffect(() => {
+    console.log('sad');
+    if (queryResponse.data) {
+      let tokenID =
+        queryResponse.data.TokenBalances.TokenBalance[0].tokenNfts.tokenId;
+      console.log(tokenID);
+      TokenIdSetter(tokenID);
+    }
+  }, [queryResponse.data]);
+
+  const ContractRead = useContractRead({
+    address: '0xAccD4112dCC20B6a40068eC5DCC695e5cD8Ee87F',
+    abi: ABI,
+    functionName: 'balanceOf',
+    args: [account.address],
+    watch: false,
+  });
 
   const tba = `{
     Accounts(
@@ -52,27 +105,8 @@ const Home = () => {
     }
     }`;
 
-    const [tbAccounts, setTbAccounts] = useState([])
-    console.log(tbAccounts)
     const [fetch_tba, tba_queryResponse] = useLazyQuery(tba)
-
-    useEffect(() => {
-      fetch_tba();
-    }, []);
-
-    useEffect(() => {
-      if(tba_queryResponse.data) {
-        console.log(tba_queryResponse.data.Accounts.Account);
-        const customImplementation = '0x1538db7bca51b886b9c3110e17cf64a7a6181dc1'
-        const newAccounts = tba_queryResponse.data.Accounts.Account
-        .filter(account => account.implementation === customImplementation)
-        .map(account => account.address.addresses)
-        .flat()
-
-        setTbAccounts(newAccounts)
-      }
-    }, [tba_queryResponse.data]);
-
+  
     const tbaNFTs = `
     query MyQuery {
       TokenBalances(
@@ -92,31 +126,84 @@ const Home = () => {
       }
     }
     `;
-  
-    const [tbAccNFTs, setTbAccNFTs] = useState([])
+
     const [fetch_tbaNFTs, tbaNFTs_queryResponse] = useLazyQuery(tbaNFTs)
 
-    useEffect(() => {
-      if(tbAccounts.length > 0) {  // check if tbAccounts array is populated
-        fetch_tbaNFTs();
-      }
-    }, [tbAccounts]);
-    
-    useEffect(() => {
-      if(tbaNFTs_queryResponse.data) {
-        console.log(tbaNFTs_queryResponse.data)
-        setTbAccNFTs(tbaNFTs_queryResponse.data)
-      }
-    }, [tbaNFTs_queryResponse.data]);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
-    console.log(tbAccNFTs)
+
+  useEffect(() => {
+    if(tbAccounts.length > 0) {  // check if tbAccounts array is populated
+      fetch_tbaNFTs();
+    }
+  }, [tbAccounts]);
+  
+  useEffect(() => {
+    if(tbaNFTs_queryResponse.data) {
+      console.log(tbaNFTs_queryResponse.data)
+      setTbAccNFTs(tbaNFTs_queryResponse.data)
+    }
+  }, [tbaNFTs_queryResponse.data]);
+  
+  function TokenIdSetter(NewValue) {
+    setTokenId(NewValue);
+  }
+
+    useEffect(() => {
+      fetch_tba();
+    }, []);
+
+    useEffect(() => {
+      if(tba_queryResponse.data) {
+        console.log(tba_queryResponse.data.Accounts.Account);
+        const customImplementation = '0x1538db7bca51b886b9c3110e17cf64a7a6181dc1'
+        const newAccounts = tba_queryResponse.data.Accounts.Account
+        .filter(account => account.implementation === customImplementation)
+        .map(account => account.address.addresses)
+        .flat()
+
+        setTbAccounts(newAccounts)
+      }
+    }, [tba_queryResponse.data]);
+
+
+    console.log(tokenId)
     
   return (
   <Menubar>
       <div className={styles.container}>
       <div className={styles.wrapper}>
-          <IdBar tbAccounts={tbAccounts} tokenId={tokenId} TokenIdSetter={TokenIdSetter} />
-          <StatBox />
+      {isMounted && (
+            <>
+              {account.address ? (
+                tokenId ? (
+
+                  <IdBar
+                    tbAccounts={tbAccounts}
+                    tokenId={tokenId}
+                    TokenIdSetter={TokenIdSetter}
+                  />
+
+                ) : (
+                <div className={styles.accContainer}>
+                  <div className={styles.highlightF}></div>
+                  <div className={styles.highlightS}></div>
+                  <MintId tokenId={tokenId} />
+                  <div className={styles.highlightT}></div>
+                </div>
+                )
+              ) : (
+                <div className={styles.accContainer}>
+                <div className={styles.highlightF}></div>
+                <div className={styles.highlightS}></div>
+                <ConnectAcc />
+                <div className={styles.highlightT}></div>
+              </div>
+              )}
+            </>
+          )}
         </div>
         <footer className={styles.footer}>
           <a href="https://rainbow.me" rel="noopener noreferrer" target="_blank">

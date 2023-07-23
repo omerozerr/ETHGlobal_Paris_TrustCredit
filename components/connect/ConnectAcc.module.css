@@ -1,0 +1,42 @@
+.container {
+    display: flex;
+    width: 750px;
+    height: 358px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgb(255, 255, 255,0.4);
+    z-index: 2;
+    position: absolute;
+}
+
+.title{
+    position: absolute;
+    top: 45px;
+    flex-shrink: 0;
+    color: #4A423A;
+    font-family: sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%; /* 40px */
+}
+
+.content{
+    position: absolute;
+    color: #4A423A;
+    font-family: sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 80%; /* 32px */
+    width: 618px;
+    height: 37px;
+    flex-shrink: 0;
+}
+
+.connect {
+    position: absolute;
+    bottom: 45px;
+}

@@ -9,6 +9,26 @@
   height: 533px;
   flex-shrink: 0;
 }
+
+.supplyTitle{
+  display:flex;
+  margin-top: 25px;
+  margin-left: 144px;
+  margin-right: 144px;
+  border-radius: 9px;
+  background-color: rgb(255, 159, 159, 0.3);
+  height: 46px;
+  justify-content: center;
+  align-items: center;
+  color: #4A423A;
+  font-family: sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 25px;
+  width: 253px;
+}
+
 .headerRow {
   display: flex;
   justify-content: space-between;

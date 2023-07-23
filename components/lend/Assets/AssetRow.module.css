@@ -21,7 +21,7 @@
 
   .asseteRate {
     color: #00BF2A;
-    font-family: Manrope;
+    font-family: sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 800;
@@ -35,7 +35,7 @@
     margin-bottom: 38px;
     color: #4A423A;
     text-align: center;
-    font-family: Manrope;
+    font-family: sans-serif;
     font-size: 35px;
     font-style: normal;
     font-weight: 800;
@@ -53,7 +53,7 @@
     margin-top: 46.5px;
     margin-bottom: 46.5px;
     color: #4A423A;
-    font-family: Manrope;
+    font-family: sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 800;
@@ -71,7 +71,7 @@
     height: 63px;
     border: none;
     color: #4A423A;
-    font-family: Manrope;
+    font-family: sans-serif;
     font-size: 20px;
     font-style: normal;
     font-weight: 800;

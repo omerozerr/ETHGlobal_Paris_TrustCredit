@@ -1,0 +1,57 @@
+.container {
+    display: flex;
+    width: 750px;
+    height: 358px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9px;
+    background: rgb(255, 255, 255,0.4);
+    z-index: 2;
+    position: absolute;
+}
+
+.title{
+    position: absolute;
+    top: 45px;
+    flex-shrink: 0;
+    color: #4A423A;
+    font-family: sans-serif;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%; /* 40px */
+}
+
+.content{
+    position: absolute;
+    color: #4A423A;
+    font-family: sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 550;
+    line-height: 80%; /* 32px */
+    width: 618px;
+    height: 37px;
+    flex-shrink: 0;
+}
+
+.mintButton {
+    position: absolute;
+    bottom: 45px;
+    border-radius: 9px;
+    border: 3px solid #BBA68C;
+    background: #4A423A;
+    width: 324px;
+    height: 87px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFF;
+    font-family: sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 80%; /* 28px */    
+}   

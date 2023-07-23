@@ -6,27 +6,6 @@ import styles from './id/IdBar.module.css';
 
 const CreateAccount = (props) => {
   const { tokenId } = props;
-  /*const query = `query {
-    Accounts(
-      input: {filter: {tokenAddress: {_in: "0xbc4ca0eda7647a8ab7c2061c2e118a18a936f13d"}}, blockchain: ethereum, limit: 200}
-    ) {
-      Account {
-        address {
-          addresses
-          domains {
-            name
-            isPrimary
-          }
-          socials {
-            dappName
-            profileName
-          }
-        }
-      }
-    }
-  }`;
-  const queryResponse = useQuery(query);
-  console.log(queryResponse.data);*/
 
   async function Create6551Account() {
     console.log(tokenId);
@@ -51,10 +30,9 @@ const CreateAccount = (props) => {
 
   return (
     <div>
-      <div> Create 6551 Account For Your ID</div>
-      <button className={styles.buttonx} onClick={Create6551Account}>
+      <div onClick={Create6551Account}>
         Create Account
-      </button>
+      </div>
     </div>
   );
 };
