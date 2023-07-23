@@ -19,6 +19,12 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "viem": "^1.3.1",
-    "wagmi": "^1.3.9"
+    "wagmi": "^1.3.9",
+    "@aave/protocol-v2": "^1.0.1",
+    "@chainlink/contracts": "^0.6.1",
+    "@chainlink/hardhat-chainlink": "^0.0.2",
+    "@openzeppelin/contracts": "4.7.3",
+    "@nomicfoundation/hardhat-toolbox": "^2.0.2",
+    "hardhat": "^2.17.0"
   }
 }
