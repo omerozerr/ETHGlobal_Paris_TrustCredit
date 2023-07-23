@@ -203,7 +203,7 @@ const Home = () => {
                 <div className={styles.accContainer}>
                 <div className={styles.highlightF}></div>
                 <div className={styles.highlightS}></div>
-                <ConnectAcc />
+                    <ConnectAcc />
                 <div className={styles.highlightT}></div>
               </div>
               )}

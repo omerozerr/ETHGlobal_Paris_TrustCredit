@@ -16,7 +16,7 @@ const ScoreBox = () => {
                 width={92}
                 height={92}
                 alt="Logo" />
-                <div className={styles.nftCount}>NFT Count</div>
+                <div className={styles.nftCount}>2 NFT</div>
                 <div className={styles.csNum}>750</div>
                 <div className={styles.csWritten}>Credit Score</div>
             </div>

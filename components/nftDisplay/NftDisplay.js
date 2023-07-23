@@ -15,8 +15,8 @@ const NftDisplay = ({tokenBalances}) => {
                 height={92}
                 alt="Logo" 
             />
-            <div className={styles.nftAddress}>Address</div>
-            <div className={styles.nftValue}>Value</div>
+            <div className={styles.nftAddress}>{tokenBalances.tokenAddress}</div>
+            <div className={styles.nftValue}>+10</div>
         </div>
     )
 }
