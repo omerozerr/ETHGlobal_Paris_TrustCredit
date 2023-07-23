@@ -13,7 +13,6 @@ const Home = () => {
     setisSupplied(newValue);
   }
   return (
-    // Then wrap your page's content with the Menubar component
     <Menubar>
       <div className={styles.container}>
         <Head>

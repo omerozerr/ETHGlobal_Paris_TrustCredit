@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import { init, useLazyQuery } from '@airstack/airstack-react';
 import { useAccount,   useContractRead } from 'wagmi';
 import ABI from '@/BasemoABI';
+import ScoreBox from '@/components/score/ScoreBox';
+import ScoreBoxProfile from '@/components/score/ScoreBoxProfile';
 init('ddfcc652b902475e99ee40f6db959ff9');
 
 const IdBar = dynamic(() => import('@/components/id/IdBar'), {
@@ -16,10 +18,6 @@ const ConnectAcc = dynamic(() => import('@/components/connect/ConnectAcc'), {
 });
 
 const MintId = dynamic(() => import('@/components/connect/MintId'), {
-  ssr: false,
-});
-
-const WalletComponent = dynamic(() => import('../components/WalletComponent'), {
   ssr: false,
 });
 
@@ -121,6 +119,9 @@ const Home = () => {
             address
             tokenId
             blockchain
+            metaData {
+              image
+            }
           }
         }
       }
@@ -135,18 +136,21 @@ const Home = () => {
 
 
   useEffect(() => {
-    if(tbAccounts.length > 0) {  // check if tbAccounts array is populated
+    if(tbAccounts.length > 0) { 
       fetch_tbaNFTs();
     }
   }, [tbAccounts]);
   
   useEffect(() => {
-    if(tbaNFTs_queryResponse.data) {
-      console.log(tbaNFTs_queryResponse.data)
-      setTbAccNFTs(tbaNFTs_queryResponse.data)
+    if(tbaNFTs_queryResponse.data && tbaNFTs_queryResponse.data.TokenBalances && tbaNFTs_queryResponse.data.TokenBalances.TokenBalance) {
+      setTbAccNFTs(tbaNFTs_queryResponse.data.TokenBalances.TokenBalance)
     }
   }, [tbaNFTs_queryResponse.data]);
-  
+
+  if (tbaNFTs_queryResponse.data && tbaNFTs_queryResponse.data.TokenBalances) {
+    console.log(tbaNFTs_queryResponse.data.TokenBalances.TokenBalance)
+}
+
   function TokenIdSetter(NewValue) {
     setTokenId(NewValue);
   }
@@ -174,18 +178,19 @@ const Home = () => {
   return (
   <Menubar>
       <div className={styles.container}>
-      <div className={styles.wrapper}>
       {isMounted && (
             <>
               {account.address ? (
                 tokenId ? (
-
+                <div className={styles.box}>
+                  <div className={styles.highlightF}></div>
+                  <div className={styles.highlightS}></div>
+                  <ScoreBoxProfile tokenId={tokenId} tbAccounts={tbAccounts} />
                   <IdBar
-                    tbAccounts={tbAccounts}
-                    tokenId={tokenId}
-                    TokenIdSetter={TokenIdSetter}
+                    tokenBalances={tbaNFTs_queryResponse?.data?.TokenBalances?.TokenBalance}
                   />
-
+                  <div className={styles.highlightT}></div>
+                </div>
                 ) : (
                 <div className={styles.accContainer}>
                   <div className={styles.highlightF}></div>
@@ -204,7 +209,6 @@ const Home = () => {
               )}
             </>
           )}
-        </div>
         <footer className={styles.footer}>
           <a href="https://rainbow.me" rel="noopener noreferrer" target="_blank">
             Made with ❤️ Oğuz Utku Yıldız hehe

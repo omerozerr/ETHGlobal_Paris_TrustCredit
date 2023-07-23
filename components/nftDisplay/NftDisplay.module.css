@@ -1,0 +1,40 @@
+.displayContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 100px;
+
+}
+
+.profileLogo{
+    position: absolute;
+    left: 1px;
+    right: 980px;
+    border-radius: 9px;
+}
+
+.nftAddress {
+    position: absolute;
+    display: flex;
+    left: 140px;
+    right: 246px;
+    width: 650px;
+    height: 92px;
+    border-radius: 9px;
+    background-color: rgb(255, 255, 255, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.nftValue {
+    position: absolute;
+    display: flex;
+    left: 840px;
+    width: 163px;
+    height: 92px;
+    border-radius: 9px;
+    background-color: rgb(255, 255, 255, 0.5);
+    justify-content: center;
+    align-items: center;
+}
