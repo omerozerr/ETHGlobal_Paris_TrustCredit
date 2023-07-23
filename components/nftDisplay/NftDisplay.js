@@ -9,7 +9,7 @@ const NftDisplay = ({tokenBalances}) => {
     return(
         <div className={styles.displayContainer}>
             <Image 
-                src={ipfsToHttp(tokenBalances.tokenNfts.metaData.image)}
+                src={ipfsToHttp("ipfs://QmQn23TimyWdNRxMS6FVWghWF7Pz2pmN3SCNQe5boxW9gh")}
                 className={styles.profileLogo}
                 width={92}
                 height={92}
